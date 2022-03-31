@@ -55,16 +55,17 @@ def main():
 
     datadir = args.datadir
     datasource = args.datasource
+    datasource_dir = datadir / datasource
 
     i = 0
-    for dataset in sorted(datadir.iterdir(), key=lambda x: x.name):
-        dataset_name = dataset.name
+    for dataset_dir in sorted(datasource_dir.iterdir(), key=lambda x: x.name):
+        dataset_name = dataset_dir.name
         blobs_in_bucket = get_blobs_in_bucket(
             storage_client,
             bucket,
             prefix=f"{datasource}/{dataset_name}",
         )
-        for file in sorted(dataset.iterdir(), key=lambda x: x.name):
+        for file in sorted(dataset_dir.iterdir(), key=lambda x: x.name):
             filename = file.name
             destination_blob_name = f"{datasource}/{dataset_name}/{filename}"
             if destination_blob_name in blobs_in_bucket:
