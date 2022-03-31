@@ -42,6 +42,11 @@ def get_parser():
         required=True,
         help="Data source",
     )
+    parser.add_argument(
+        "--dataset",
+        required=False,
+        help="Dataset",
+    )
     return parser
 
 
@@ -56,9 +61,13 @@ def main():
     datadir = args.datadir
     datasource = args.datasource
     datasource_dir = datadir / datasource
+    if args.dataset:
+        dataset_dirs = [datasource_dir / args.dataset]
+    else:
+        dataset_dirs = sorted(datasource_dir.iterdir(), key=lambda x: x.name)
 
     i = 0
-    for dataset_dir in sorted(datasource_dir.iterdir(), key=lambda x: x.name):
+    for dataset_dir in dataset_dirs:
         dataset_name = dataset_dir.name
         blobs_in_bucket = get_blobs_in_bucket(
             storage_client,
