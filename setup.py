@@ -9,7 +9,7 @@ setuptools.setup(
     name="gcs-uploader",
     version="0.0.1",
     author="Daniel Komesu",
-    author_email="danielkomesu@gmail.com",
+    author_email="daniel@dkko.me",
     description="Upload files to Google Cloud Storage",
     long_description=long_description,
     long_description_content_type="text/markdown",
